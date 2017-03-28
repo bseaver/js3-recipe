@@ -22,7 +22,7 @@ import { Component } from '@angular/core';
       </div> <!-- col -->
 
       <div class="col-md-8">
-        <form *ngIf="clickedRecipe" (submit)="hideRecipe()" class="form-horizontal">
+        <form *ngIf="clickedRecipe" class="form-horizontal">
           <div class="form-group">
             <label for="title">Title:</label>
             <input [(ngModel)]="clickedRecipe.title" type="text" placeholder="Recipe name" name="title" class="form-control">
@@ -37,16 +37,20 @@ import { Component } from '@angular/core';
                   <td><input [value]="clickedRecipe.ingredients[idx]" (input)="clickedRecipe.ingredients[idx] = $event.target.value" class="form-control" name="ingredient" placeholder="Enter ingredient"></td>
                   <td><button (click)="deleteIngredient(idx)" class="btn btn-default">Delete</button></td>
                 </tr>
+                <tr>
+                <td><input [value]="addThisIngredient" (input)="addThisIngredient = $event.target.value" class="form-control" name="ingredient" placeholder="Enter ingredient"></td>
+                <td><button (click)="addIngredient()" class="btn btn-default">Add</button></td>
+                </tr>
               </tbody>
             </table>
           </div>
-          
+
           <div class="form-group">
             <label for="directions">Directions:</label>
             <textarea [(ngModel)]="clickedRecipe.directions" rows=10 class="form-control" name="directions" placeholder="List instructions"></textarea>
           </div>
           <div class="form-group">
-            <button type="submit" class="btn btn-default">Hide</button>
+            <button (click)="hideRecipe()" class="btn btn-default">Hide</button>
           </div>
         </form>
       </div> <!-- col -->
@@ -57,6 +61,8 @@ import { Component } from '@angular/core';
 
 export class AppComponent {
   clickedRecipe: Recipe = null;
+  addThisIngredient: string = "";
+
   recipes: Recipe[] = [
     new Recipe('Stew', ['water', 'meat', 'potatoes'],
       "Boil water.\nAdd potatoes.\nBrown meat.\nAdd to pot.\n"),
@@ -74,6 +80,11 @@ export class AppComponent {
 
   deleteIngredient(idx) {
     this.clickedRecipe.ingredients.splice(idx, 1);
+  }
+
+  addIngredient() {
+    this.clickedRecipe.ingredients.push(this.addThisIngredient);
+    this.addThisIngredient = "";
   }
 }
 
