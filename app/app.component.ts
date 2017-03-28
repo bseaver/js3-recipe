@@ -11,16 +11,21 @@ import { Component } from '@angular/core';
           <thead>
             <tr>
               <th>Recipe</th>
+              <th></th>
             </tr>
           </thead>
           <tbody>
-            <tr *ngFor="let recipe of recipes">
+            <tr *ngFor="let recipe of recipes; let idx = index;">
               <td (click)="recipeClicked(recipe)">{{recipe.title}}</td>
-            </tr>
-            <tr>
-              <td><button (click)="newRecipe()" class="btn btn-default">New Recipe</button></td>
+              <td><button (click)="deleteRecipe(idx)" class="btn btn-default">Delete</button></td>
             </tr>
           </tbody>
+          <tfoot>
+            <tr>
+            <td><button (click)="newRecipe()" class="btn btn-default">New Recipe</button></td>
+            <td></td>
+            </tr>
+          </tfoot>
         </table>
       </div> <!-- col -->
 
@@ -95,6 +100,14 @@ export class AppComponent {
   newRecipe() {
     this.clickedRecipe = new Recipe();
     this.recipes.push(this.clickedRecipe);
+  }
+
+  deleteRecipe(idx) {
+    let recipe = this.recipes[idx];
+    if (recipe === this.clickedRecipe) {
+      this.hideRecipe();
+    }
+    this.recipes.splice(idx, 1);
   }
 }
 
