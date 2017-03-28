@@ -17,6 +17,9 @@ import { Component } from '@angular/core';
             <tr *ngFor="let recipe of recipes">
               <td (click)="recipeClicked(recipe)">{{recipe.title}}</td>
             </tr>
+            <tr>
+              <td><button (click)="newRecipe()" class="btn btn-default">New Recipe</button></td>
+            </tr>
           </tbody>
         </table>
       </div> <!-- col -->
@@ -83,11 +86,18 @@ export class AppComponent {
   }
 
   addIngredient() {
-    this.clickedRecipe.ingredients.push(this.addThisIngredient);
-    this.addThisIngredient = "";
+    if (this.addThisIngredient) {
+      this.clickedRecipe.ingredients.push(this.addThisIngredient);
+      this.addThisIngredient = "";
+    }
+  }
+
+  newRecipe() {
+    this.clickedRecipe = new Recipe();
+    this.recipes.push(this.clickedRecipe);
   }
 }
 
 export class Recipe {
-  constructor(public title: string, public ingredients: string[], public directions: string) { }
+  constructor(public title: string = "", public ingredients: string[] = [], public directions: string = "") { }
 }
