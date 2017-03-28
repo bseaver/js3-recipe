@@ -9,8 +9,9 @@
 
 ## Commands used during creation
 `apm install atom-typescript` (for using Atom)
+`npm install`
 `bower init`
-
+`bower install`
 `$ bower install bootstrap --save`
 
 
