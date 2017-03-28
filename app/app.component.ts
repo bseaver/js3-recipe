@@ -25,11 +25,11 @@ import { Component } from '@angular/core';
         <form *ngIf="clickedRecipe" class="form-horizontal">
           <div class="form-group">
             <label for="title">Title:</label>
-            <input [value]="clickedRecipe.title" (input)="clickedRecipe.title = $event.target.value" type="text" class="form-control" id="title" placeholder="Recipe Name or Title">
+            <input [(ngModel)]="clickedRecipe.title" type="text" placeholder="Recipe name" name="title">
           </div>
           <div class="form-group">
             <label for="directions">Directions:</label>
-            <input type="text" class="form-control" id="directions" placeholder="List instructions">
+            <textarea [(ngModel)]="clickedRecipe.directions" rows=10 class="form-control" name="directions" placeholder="List instructions"></textarea>
           </div>
           <div class="form-group">
             <button type="submit" class="btn btn-default">Submit</button>
@@ -47,7 +47,7 @@ export class AppComponent {
     new Recipe('Stew', ['water', 'meat', 'potatoes'],
       "Boil water.\nAdd potatoes.\nBrown meat.\nAdd to pot.\n"),
     new Recipe('Cookies', ['flour', 'sugar', 'eggs', 'butter', 'milk'],
-      "Mix.\nPut in oven.\nBake at 350 for 20 min. until golden bronw.\n")
+      "Mix.\nPut in oven.\nBake at 350 for 20 min. until golden brown.\n")
   ];
 
   recipeClicked(recipe) {
@@ -56,5 +56,5 @@ export class AppComponent {
 }
 
 export class Recipe {
-  constructor(public title: string, ingredients: string[], directions: string) { }
+  constructor(public title: string, public ingredients: string[], public directions: string) { }
 }
