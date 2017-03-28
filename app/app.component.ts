@@ -25,7 +25,7 @@ import { Component } from '@angular/core';
         <form *ngIf="clickedRecipe" class="form-horizontal">
           <div class="form-group">
             <label for="title">Title:</label>
-            <input [value]="clickedRecipe.title" type="text" class="form-control" id="title" placeholder="Recipe Name or Title">
+            <input [value]="clickedRecipe.title" (input)="clickedRecipe.title = $event.target.value" type="text" class="form-control" id="title" placeholder="Recipe Name or Title">
           </div>
           <div class="form-group">
             <label for="directions">Directions:</label>
