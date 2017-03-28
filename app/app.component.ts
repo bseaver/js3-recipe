@@ -15,7 +15,7 @@ import { Component } from '@angular/core';
           </thead>
           <tbody>
             <tr *ngFor="let recipe of recipes">
-              <td>{{recipe.title}}</td>
+              <td (click)="recipeClicked(recipe)">{{recipe.title}}</td>
             </tr>
           </tbody>
         </table>
@@ -35,6 +35,10 @@ export class AppComponent {
     new Recipe('Cookies', ['flour', 'sugar', 'eggs', 'butter', 'milk'],
       "Mix.\nPut in oven.\nBake at 350 for 20 min. until golden bronw.\n")
   ];
+
+  recipeClicked(recipe) {
+    alert(recipe.title);
+  }
 }
 
 export class Recipe {
