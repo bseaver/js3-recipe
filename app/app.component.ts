@@ -19,16 +19,30 @@ import { Component } from '@angular/core';
             </tr>
           </tbody>
         </table>
-      </div>
+      </div> <!-- col -->
 
       <div class="col-md-8">
-      </div>
-    </div>
-  </div>
+        <form *ngIf="clickedRecipe" class="form-horizontal">
+          <div class="form-group">
+            <label for="title">Title:</label>
+            <input [value]="clickedRecipe.title" type="text" class="form-control" id="title" placeholder="Recipe Name or Title">
+          </div>
+          <div class="form-group">
+            <label for="directions">Directions:</label>
+            <input type="text" class="form-control" id="directions" placeholder="List instructions">
+          </div>
+          <div class="form-group">
+            <button type="submit" class="btn btn-default">Submit</button>
+          </div>
+        </form>
+      </div> <!-- col -->
+    </div> <!-- row -->
+  </div> <!-- container -->
   `
 })
 
 export class AppComponent {
+  clickedRecipe: Recipe = null;
   recipes: Recipe[] = [
     new Recipe('Stew', ['water', 'meat', 'potatoes'],
       "Boil water.\nAdd potatoes.\nBrown meat.\nAdd to pot.\n"),
@@ -37,7 +51,7 @@ export class AppComponent {
   ];
 
   recipeClicked(recipe) {
-    alert(recipe.title);
+    this.clickedRecipe = recipe;
   }
 }
 
