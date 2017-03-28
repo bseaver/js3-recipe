@@ -22,17 +22,31 @@ import { Component } from '@angular/core';
       </div> <!-- col -->
 
       <div class="col-md-8">
-        <form *ngIf="clickedRecipe" class="form-horizontal">
+        <form *ngIf="clickedRecipe" (submit)="hideRecipe()" class="form-horizontal">
           <div class="form-group">
             <label for="title">Title:</label>
-            <input [(ngModel)]="clickedRecipe.title" type="text" placeholder="Recipe name" name="title">
+            <input [(ngModel)]="clickedRecipe.title" type="text" placeholder="Recipe name" name="title" class="form-control">
           </div>
+
+          <div class="form-group">
+            <label>Ingredients:</label>
+
+            <table class="table table-striped">
+              <tbody>
+                <tr *ngFor="let ingredient of clickedRecipe.ingredients; let idx = index;">
+                  <td><input [value]="clickedRecipe.ingredients[idx]" (input)="clickedRecipe.ingredients[idx] = $event.target.value" class="form-control" name="ingredient" placeholder="Enter ingredient"></td>
+                  <td><button (click)="deleteIngredient(idx)" class="btn btn-default">Delete</button></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          
           <div class="form-group">
             <label for="directions">Directions:</label>
             <textarea [(ngModel)]="clickedRecipe.directions" rows=10 class="form-control" name="directions" placeholder="List instructions"></textarea>
           </div>
           <div class="form-group">
-            <button type="submit" class="btn btn-default">Submit</button>
+            <button type="submit" class="btn btn-default">Hide</button>
           </div>
         </form>
       </div> <!-- col -->
@@ -52,6 +66,14 @@ export class AppComponent {
 
   recipeClicked(recipe) {
     this.clickedRecipe = recipe;
+  }
+
+  hideRecipe() {
+    this.clickedRecipe = null;
+  }
+
+  deleteIngredient(idx) {
+    this.clickedRecipe.ingredients.splice(idx, 1);
   }
 }
 
